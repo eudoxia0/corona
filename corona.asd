@@ -10,10 +10,12 @@
   :depends-on (:cl-virtualbox
                :trivial-download
                :puri
-               :ironclad)
+               :ironclad
+               :trivial-types)
   :components ((:module "src"
                 :components
-                ((:file "bootstrap"))))
+                ((:file "bootstrap")
+                 (:file "base"))))
   :description "Isolated, reproducible virtual development environments."
   :long-description
   #.(uiop:read-file-string
