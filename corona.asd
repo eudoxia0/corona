@@ -15,7 +15,8 @@
   :components ((:module "src"
                 :components
                 ((:file "bootstrap")
-                 (:file "base"))))
+                 (:file "base")
+                 (:file "base-list"))))
   :description "Isolated, reproducible virtual development environments."
   :long-description
   #.(uiop:read-file-string
