@@ -39,16 +39,16 @@ exist."
     (unless (probe-file local-pathname)
       (trivial-download:download url local-pathname))))
 
-(defun file-checksum (pathname)
-  "Generate the SHA1 checksum of a file."
-  (let* ((digest-type :sha1)
-         (array (make-array 4096 :element-type '(unsigned-byte 8)))
-         (digester (ironclad:make-digest digest-type))
-         (digest (make-array (ironclad:digest-length digest-type)
+(defun file-checksum (checksum-type pathname)
+  "Generate the checksum of a file."
+  (let* ((array (make-array 4096 :element-type '(unsigned-byte 8)))
+         (digester (ironclad:make-digest checksum-type))
+         (digest (make-array (ironclad:digest-length checksum-type)
                              :element-type '(unsigned-byte 8))))
     (ironclad:digest-file digester pathname :buffer array :digest digest)
     (ironclad:byte-array-to-hex-string digest)))
 
-(defun verify-file (pathname checksum)
-  "Verify the SHA1 checksum of the file at `pathname` is equal to `checksum`."
-  (equal (file-checksum pathname) checksum))
+(defun verify-file (pathname checksum-type checksum)
+  "Verify the `checksum-type` checksum of the file at `pathname` is equal to
+`checksum`."
+  (equal (file-checksum checksum-type pathname) checksum))
