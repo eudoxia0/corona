@@ -8,11 +8,12 @@
            :name
            :version
            :arch
-           :cloud-box
+           :box
            :list-system-names
            :list-versions-for-system
            :list-archs-for-system
-           :list-systems))
+           :list-systems
+           :find-system))
 (in-package :corona.sys)
 
 (defclass <system> ()
@@ -31,10 +32,10 @@
          :type keyword
          :documentation "The operating system's architecture as a keyword,
          e.g. :64, :sparc.")
-   (cloud-box :reader cloud-box
-              :initarg :cloud-box
-              :type corona.cloud:<cloud-box>
-              :documentation "The box that bootstraps this system.")))
+   (box :reader box
+        :initarg :box
+        :type corona.cloud:<cloud-box>
+        :documentation "The box that bootstraps this system.")))
 
 ;;; Known systems
 
@@ -70,3 +71,10 @@
     (let ((versions (list-versions-for-system system-name))
           (archs (list-archs-for-system system-name)))
       )))
+
+(defun find-system (name version architecture)
+  (loop for system in +known-systems+
+    if (and (eq name (name system))
+            (eq version (version system))
+            (eq architecture (arch system)))
+    return system))
