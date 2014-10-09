@@ -18,7 +18,8 @@
                 ((:file "files")
                  (:file "vagrant-cloud")
                  (:file "system")
-                 (:file "system-list"))))
+                 (:file "system-list")
+                 (:file "virtual-machines"))))
   :description "Isolated, reproducible virtual development environments."
   :long-description
   #.(uiop:read-file-string
