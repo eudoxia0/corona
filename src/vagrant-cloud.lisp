@@ -78,7 +78,8 @@
        (directory (merge-pathnames #p"*.vmdk" (box-directory box)))))
 
 (defmethod download-and-extract-box ((box <cloud-box>))
-  "Download a box from Vagrant Cloud, and extract its contents."
+  "Download a box from Vagrant Cloud, and extract its contents unless it already
+exists."
   ;; Only download the box if we don't already have it)
   (unless (local-box-p box)
     (let ((url (source-url box))

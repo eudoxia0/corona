@@ -33,7 +33,11 @@
   (is-false
    (corona.cloud:local-box-p +box+))
   (is-true
-   (corona.cloud:download-and-extract-box +box+)))
+   (corona.cloud:download-and-extract-box +box+))
+  (is-false
+   (corona.cloud:download-and-extract-box +box+))
+  (is-true
+   (corona.cloud:local-box-p +box+)))
 
 (test clean-up
   (finishes
