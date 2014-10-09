@@ -63,23 +63,30 @@
 ;;; The OVF file is what we have to import, and the VMDK file is the virtual
 ;;; HDD.
 
+(defmethod local-box-p ((box <cloud-box>))
+  "Have we already downloaded the box?"
+  (and (directory (merge-pathnames #p"*.ovf" (box-directory box)))
+       (directory (merge-pathnames #p"*.vmdk" (box-directory box)))))
+
 (defmethod download-and-extract-box ((box <cloud-box>))
-  (let ((url (source-url box))
-        (archive-path (merge-pathnames #p"box-file.box"
-                                       (box-directory box))))
+  "Download a box from Vagrant Cloud, and extract its contents."
+  ;; Only download the box if we don't already have it)
+  (unless (local-box-p box)
+    (let ((url (source-url box))
+          (archive-path (merge-pathnames #p"box-file.box"
+                                         (box-directory box))))
     ;;; First things first. We download the box.
-    (corona.files:download url archive-path)
-    ;; Then we verify the checksums, if any
-    (with-slots (checksum-type checksum) box
-      (if (and checksum-type checksum)
-          (corona.files:verify-file archive-path checksum-type checksum)))
-    ;; Now that it's passed verification we extract the tarball
-    (corona.files:extract-tarball archive-path)
-    ;; Since we don't want to duplicate content, we delete the archive once it's
-    ;; extracted
-    (delete-file archive-path)
-    ;; We also delete the Vagrantfile, which we don't use
-    (let ((vagrantfile (make-pathname :name "Vagrantfile"
-                                      :directory (pathname-directory archive-path))))
-      (when (probe-file vagrantfile)
-        (delete-file vagrantfile)))))
+      (corona.files:download url archive-path)
+      ;; Then we verify the checksums, if any
+      (with-slots (checksum-type checksum) box
+        (if (and checksum-type checksum)
+            (corona.files:verify-file archive-path checksum-type checksum)))
+      ;; Now that it's passed verification we extract the tarball
+      (corona.files:extract-tarball archive-path)
+      ;; Since we don't want to duplicate content, we delete the archive once it's
+      ;; extracted
+      (delete-file archive-path)
+      ;; We also delete the Vagrantfile, which we don't use
+      (let ((vagrantfile (merge-pathnames #p"Vagrantfile"  archive-path)))
+        (when (probe-file vagrantfile)
+          (delete-file vagrantfile))))))
