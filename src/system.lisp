@@ -39,11 +39,11 @@
 
 ;;; Known systems
 
-(defparameter +known-systems+ (list)
+(defparameter *known-systems* (list)
   "A list of available systems.")
 
 (defmacro define-system (&rest params)
-  `(push (make-instance '<system> ,@params) +known-systems+))
+  `(push (make-instance '<system> ,@params) *known-systems*))
 
 (defmacro define-box (&rest params)
   `(make-instance '<cloud-box> ,@params))
@@ -51,18 +51,18 @@
 (defun list-system-names ()
   "List the names of available systems."
   (remove-duplicates
-   (loop for system in +known-systems+ collecting (name system))))
+   (loop for system in *known-systems* collecting (name system))))
 
 (defun list-versions-for-system (name)
   "List the available versions of a given system."
   (remove-duplicates
-   (loop for system in +known-systems+
+   (loop for system in *known-systems*
      if (eq name (name system)) collect (version system))))
 
 (defun list-archs-for-system (name)
   "List the available architectures of a given system."
   (remove-duplicates
-   (loop for system in +known-systems+
+   (loop for system in *known-systems*
      if (eq name (name system)) collect (arch system))))
 
 (defun list-systems (&optional (stream *standard-output*))
@@ -75,7 +75,7 @@
               system-name versions archs))))
 
 (defun find-system (name version architecture)
-  (loop for system in +known-systems+
+  (loop for system in *known-systems*
     if (and (eq name (name system))
             (eq version (version system))
             (eq architecture (arch system)))

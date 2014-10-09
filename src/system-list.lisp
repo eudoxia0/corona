@@ -183,3 +183,6 @@
   :box (define-box
            :name "openbsd-5.5"
            :author "tmatilai"))
+
+;; Simulate keeping the order
+(setf *known-systems* (reverse *known-systems*))
