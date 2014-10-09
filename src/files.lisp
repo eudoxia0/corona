@@ -3,7 +3,8 @@
 (in-package :cl-user)
 (defpackage corona.files
   (:use :cl)
-  (:export :+vagrant-cloud-directory+
+  (:export :+corona-directory+
+           :+vagrant-cloud-directory+
            :verify-file
            :download
            :extract-tarball))
