@@ -72,9 +72,13 @@
 ;;; File downloads
 
 (defun download (url pathname)
-  "Download the file from `url` to its pathname if it doesn't exist."
-  (unless (probe-file pathname)
-    (trivial-download:download url pathname)))
+  "Download the file from `url` to its pathname if it doesn't exist, returning
+`t`. If it already exists, return `nil`."
+  (if (not (probe-file pathname))
+      (progn
+        (trivial-download:download url pathname)
+        t)
+      nil))
 
 ;;; Archives
 
