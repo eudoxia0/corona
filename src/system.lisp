@@ -70,7 +70,9 @@
   (loop for system-name in (list-system-names) do
     (let ((versions (list-versions-for-system system-name))
           (archs (list-archs-for-system system-name)))
-      )))
+      (format stream
+              "~A:~%  Versions: ~{~A~#[~:;, ~]~}~%  Architectures: ~{~A~#[~:;, ~]~}~%"
+              system-name versions archs))))
 
 (defun find-system (name version architecture)
   (loop for system in +known-systems+
