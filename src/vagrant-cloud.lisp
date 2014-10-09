@@ -77,4 +77,9 @@
     (corona.files:extract-tarball archive-path)
     ;; Since we don't want to duplicate content, we delete the archive once it's
     ;; extracted
-    (delete-file archive-path)))
+    (delete-file archive-path)
+    ;; We also delete the Vagrantfile, which we don't use
+    (let ((vagrantfile (make-pathname :name "Vagrantfile"
+                                      :directory (pathname-directory archive-path))))
+      (when (probe-file vagrantfile)
+        (delete-file vagrantfile)))))
