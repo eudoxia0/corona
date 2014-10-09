@@ -84,7 +84,7 @@
     (let ((url (source-url box))
           (archive-path (merge-pathnames #p"box-file.box"
                                          (box-directory box))))
-    ;;; First things first. We download the box.
+      ;; First things first. We download the box.
       (corona.files:download url archive-path)
       ;; Then we verify the checksums, if any
       (with-slots (checksum-type checksum) box

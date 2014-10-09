@@ -6,6 +6,8 @@
 (in-suite corona)
 
 (test testing-environment
+  (finishes
+    (ensure-directories-exist +tmp-dir+))
   (is-true
    #+corona-testing t #-corona-testing nil)
   (is (equal corona.files:+corona-directory+
@@ -22,11 +24,24 @@
       (make-fake-file file)))
   (finishes
     (make-tarball +tarball-path+
-                  +tarball-file-list+)))
-
-(test stop-box-server
+                  +tarball-file-list+))
   (finishes
-    (clack:stop *server-handler*)))
+    (loop for file in +tarball-file-list+ do
+      (delete-file file))))
+
+(test download-box
+  (is-false
+   (corona.cloud:local-box-p +box+))
+  (is-true
+   (corona.cloud:download-and-extract-box +box+)))
+
+(test clean-up
+  (finishes
+    (clack:stop *server-handler*))
+  (finishes
+    (cl-fad:delete-directory-and-files +tmp-dir+))
+  (finishes
+    (cl-fad:delete-directory-and-files corona.files:+corona-directory+)))
 
 (run! 'corona)
 

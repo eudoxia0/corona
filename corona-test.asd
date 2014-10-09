@@ -11,7 +11,8 @@
   :depends-on (:corona
                :fiveam
                :clack
-               :archive)
+               :archive
+               :cl-fad)
   :components ((:module "t"
                 :serial t
                 :components
