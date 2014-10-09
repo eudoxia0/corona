@@ -2,7 +2,16 @@
 (in-package :cl-user)
 (defpackage corona.cloud
   (:use :cl)
-  (:export :<cloud-box>))
+  (:export :<cloud-box>
+           :name
+           :author
+           :version
+           :checksum-type
+           :checksum
+           :source-url
+           :box-directory
+           :local-box-p
+           :download-and-extract-box))
 (in-package :corona.cloud)
 
 (defparameter +vagrant-cloud-url-fmt+
@@ -89,4 +98,6 @@
       ;; We also delete the Vagrantfile, which we don't use
       (let ((vagrantfile (merge-pathnames #p"Vagrantfile"  archive-path)))
         (when (probe-file vagrantfile)
-          (delete-file vagrantfile))))))
+          (delete-file vagrantfile)))
+      ;; And finally, just to be neat, return t
+      t)))
