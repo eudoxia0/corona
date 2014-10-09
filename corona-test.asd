@@ -8,7 +8,12 @@
 (defsystem corona-test
   :author "Fernando Borretti"
   :license "MIT"
-  :depends-on (:corona :fiveam)
+  :depends-on (:corona
+               :fiveam
+               :clack
+               :archive)
   :components ((:module "t"
+                :serial t
                 :components
-                ((:file "corona")))))
+                ((:file "setup")
+                 (:file "tests")))))
