@@ -9,14 +9,16 @@
   :license "MIT"
   :depends-on (:cl-virtualbox
                :trivial-download
-               :puri
                :ironclad
-               :trivial-types)
+               :trivial-types
+               :archive)
   :components ((:module "src"
+                :serial t
                 :components
-                ((:file "bootstrap")
-                 (:file "base")
-                 (:file "base-list"))))
+                ((:file "files")
+                 (:file "vagrant-cloud")
+                 (:file "system")
+                 (:file "system-list"))))
   :description "Isolated, reproducible virtual development environments."
   :long-description
   #.(uiop:read-file-string
