@@ -92,12 +92,18 @@ exists."
         (if (and checksum-type checksum)
             (corona.files:verify-file archive-path checksum-type checksum)))
       ;; Now that it's passed verification we extract the tarball
-      (corona.files:extract-tarball archive-path)
+      (handler-bind
+          ((t #'(lambda (c)
+                  (log:error "Corrupt archive. Deleting archive and starting again.")
+                  (delete-file archive-path)
+                  (download-and-extract-box box))))
+          (corona.files:extract-tarball archive-path))
       ;; Since we don't want to duplicate content, we delete the archive once it's
       ;; extracted
       (delete-file archive-path)
       ;; We also delete the Vagrantfile, which we don't use
-      (let ((vagrantfile (merge-pathnames #p"Vagrantfile"  archive-path)))
+      (let ((vagrantfile (make-pathname :name "Vagrantfile"
+                                        :directory (pathname-directory archive-path))))
         (when (probe-file vagrantfile)
           (delete-file vagrantfile)))
       ;; And finally, just to be neat, return t

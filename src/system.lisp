@@ -9,6 +9,7 @@
            :version
            :arch
            :box
+           :ensure-box
            :list-system-names
            :list-versions-for-system
            :list-archs-for-system
@@ -36,6 +37,10 @@
         :initarg :box
         :type corona.cloud:<cloud-box>
         :documentation "The box that bootstraps this system.")))
+
+(defmethod ensure-box ((sys <system>))
+  "Ensure the system's box is ready to be imported."
+  (corona.cloud:download-and-extract-box (box sys)))
 
 ;;; Known systems
 
