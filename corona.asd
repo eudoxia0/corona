@@ -9,9 +9,9 @@
   :license "MIT"
   :depends-on (:cl-virtualbox
                :trivial-download
-               :ironclad
                :trivial-types
-               :archive
+               :trivial-extract
+               :ironclad
                :cl-fad
                :log4cl)
   :components ((:module "src"

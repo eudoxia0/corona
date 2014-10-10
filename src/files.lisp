@@ -100,21 +100,6 @@
         t)
       nil))
 
-;;; Archives
-
-(defun extract-tarball (pathname)
-  "Extract a tarball to its containing directory."
-  ;; archive, by default, extracts all entries to *default-pathname-defaults*,
-  ;; so we have to override its value to the directory that contains the archive
-  (let ((current-dpf *default-pathname-defaults*))
-    (setf *default-pathname-defaults*
-          (make-pathname :directory (pathname-directory pathname)))
-    (archive:with-open-archive (archive pathname)
-      (archive:do-archive-entries (entry archive)
-        (archive:extract-entry archive entry)))
-    (setf *default-pathname-defaults* current-dpf)
-    t))
-
 ;;; File copying
 
 (defun copy-files-to-directory (files destination)

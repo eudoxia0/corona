@@ -97,7 +97,7 @@ exists."
                   (log:error "Corrupt archive. Deleting archive and starting again.")
                   (delete-file archive-path)
                   (download-and-extract-box box))))
-          (corona.files:extract-tarball archive-path))
+          (trivial-extract:extract archive-path))
       ;; Since we don't want to duplicate content, we delete the archive once it's
       ;; extracted
       (delete-file archive-path)
