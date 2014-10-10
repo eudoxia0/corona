@@ -5,7 +5,10 @@
   (:import-from :corona.sys
                 :<system>
                 :box)
-  (:export :<vm>
+  (:export :<hardware>
+           :memory
+           :cpu-count
+           :<vm>
            :name
            :system
            :hardware
@@ -122,7 +125,7 @@ VM was already built."
 
 (defmethod stop ((vm <vm>))
   (log:info "Stopping...")
-  (poweroff-vm vm))
+  (poweroff vm))
 
 (defmethod pause ((vm <vm>))
   (log:info "Pausing...")
