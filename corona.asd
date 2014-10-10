@@ -11,7 +11,9 @@
                :trivial-download
                :ironclad
                :trivial-types
-               :archive)
+               :archive
+               :cl-fad
+               :log4cl)
   :components ((:module "src"
                 :serial t
                 :components
