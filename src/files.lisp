@@ -5,9 +5,11 @@
   (:use :cl)
   (:export :+corona-directory+
            :+vagrant-cloud-directory+
+           :+vm-directory+
            :verify-file
            :download
-           :extract-tarball))
+           :extract-tarball
+           :copy-files-to-directory))
 (in-package :corona.files)
 
 ;;; File directories
@@ -30,6 +32,10 @@
 (defparameter +vagrant-cloud-directory+
   (merge-pathnames #p"vagrant-cloud/" +files-directory+)
   "The directory where Corona stores Vagrant Cloud images.")
+
+(defparameter +vm-directory+
+  (merge-pathnames #p"virtual-machines/" +files-directory+)
+  "The directory where images of specific virtual machines are stored.")
 
 ;;; File verification
 
@@ -71,11 +77,25 @@
 
 ;;; File downloads
 
+(defun have-curl-p ()
+ (equal 0
+        (third
+         (multiple-value-list (uiop:run-program "which curl"
+                                                :ignore-error-status t)))))
+
+(defun download-over-curl (url pathname)
+  (ensure-directories-exist
+   (cl-fad:pathname-directory-pathname pathname))
+  (uiop:run-program
+   (format nil "curl -o ~S ~S" (namestring pathname) url)))
+
 (defun download (url pathname)
   "Download the file from `url` to its pathname if it doesn't exist, returning
 `t`. If it already exists, return `nil`."
   (if (not (probe-file pathname))
       (progn
+        ;; trivial-download is pretty slow for large data, so we cheat and use
+        ;; curl where available.
         (trivial-download:download url pathname)
         t)
       nil))
@@ -94,3 +114,19 @@
         (archive:extract-entry archive entry)))
     (setf *default-pathname-defaults* current-dpf)
     t))
+
+;;; File copying
+
+(defun copy-files-to-directory (files destination)
+  "Copy a list of files to the `destination` directory."
+  (let* ((destination-paths
+           (loop for path in files collecting
+             (make-pathname :name (pathname-name path)
+                            :type (pathname-type path)
+                            :defaults destination)))
+         (pairs (mapcar #'(lambda (a b) (list a b))
+                        files
+                        destination-paths)))
+    (ensure-directories-exist destination)
+    (loop for (source destination) in pairs do
+      (cl-fad:copy-file source destination))))
