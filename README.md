@@ -11,7 +11,13 @@ machines from.
 ## Usage
 
 ~~~lisp
+(defmachine my-app
+  :system (:ubuntu :14.04 :64)
+  :memory 1024)
 
+(start my-app)
+
+(stop my-app)
 ~~~
 
 That's it.
