@@ -86,13 +86,17 @@ VM was already built."
            (destination-directory (vm-directory vm))
            (box-contents (cl-fad:list-directory (corona.cloud:box-directory box))))
       ;; Now we have to copy everything in box-contents to destination-directory
-      (corona.files:copy-files-to-directory box-contents
-                                            destination-directory)
+      (log:info "Copying OVF file to Corona directory.")
+      (handler-case
+          (corona.files:copy-files-to-directory box-contents
+                                                destination-directory)
+        (t () (log:info "OVF file already copied.")))
       (let ((ovf-file (first
                        (remove-if-not #'(lambda (path)
                                           (equal (pathname-type path) "ovf"))
                                       box-contents))))
         ;; And now, finally, actually issue the import command using
+        (log:info "Importing OVF file.")
         ;; cl-virtualbox If we're testing, don't actually import anything
         #-corona-testing
         (virtualbox:import-vm ovf-file (stored-vm-name vm))

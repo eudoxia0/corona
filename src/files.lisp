@@ -94,8 +94,8 @@
 `t`. If it already exists, return `nil`."
   (if (not (probe-file pathname))
       (progn
-        ;; trivial-download is pretty slow for large data, so we cheat and use
-        ;; curl where available.
+        ;; trivial-download is pretty slow for large data, so we cat cheat and
+        ;; use curl where available.
         (trivial-download:download url pathname)
         t)
       nil))
