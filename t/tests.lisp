@@ -18,7 +18,7 @@
     (setf *server-handler*
           (clack:clackup +server+ :port +server-port+))))
 
-(test create-fake-files
+(test (create-fake-files :depends-on testing-environment)
   (finishes
     (loop for file in +tarball-file-list+ do
       (make-fake-file file)))
@@ -29,7 +29,7 @@
     (loop for file in +tarball-file-list+ do
       (delete-file file))))
 
-(test download-box
+(test (download-box :depends-on create-fake-files)
   (is-false
    (corona.cloud:local-box-p +box+))
   (is-true
@@ -39,7 +39,11 @@
   (is-true
    (corona.cloud:local-box-p +box+)))
 
-(test clean-up
+(test (setup-vm :depends-on download-box)
+  (finishes
+   (corona.vm:build-vm +vm+)))
+
+(test (clean-up :depends-on setup-vm)
   (finishes
     (clack:stop *server-handler*))
   (finishes

@@ -52,20 +52,36 @@
                           :if-exists :supersede)
     (write-string "beep boop meaningless data" stream)))
 
+(defun pathname-file (pathname)
+  (make-pathname :name (pathname-name pathname)
+                 :type (pathname-type pathname)))
+
 (defun make-tarball (tarball-path files)
   (let ((current-dpf *default-pathname-defaults*))
     (setf *default-pathname-defaults*
           (make-pathname :directory (pathname-directory tarball-path)))
-    (archive::create-tar-file tarball-path files)
+    (archive::create-tar-file
+     tarball-path
+     (loop for file in files collecting (pathname-file file)))
     (setf *default-pathname-defaults* current-dpf)
     t))
 
 ;;; Now, we build the actual box.
 
-(defparameter +image-file+ #p"box.ovf")
-(defparameter +hdd-file+ #p"box-disk1.vmdk")
-(defparameter +vagrantfile+ #p"Vagrantfile")
+(defparameter +image-file+
+  (merge-pathnames #p"box.ovf" +tmp-dir+))
+(defparameter +hdd-file+
+  (merge-pathnames #p"box-disk1.vmdk" +tmp-dir+))
+(defparameter +vagrantfile+
+  (merge-pathnames #p"Vagrantfile" +tmp-dir+))
 (defparameter +tarball-path+
   (merge-pathnames #p"file.tar" +tmp-dir+))
 (defparameter +tarball-file-list+
   (list +image-file+ +hdd-file+ +vagrantfile+))
+
+;;; Now we define a virtual machine that uses this system
+
+(defparameter +vm+
+  (make-instance 'corona.vm:<vm>
+                 :name 'test-vm
+                 :system +system+))

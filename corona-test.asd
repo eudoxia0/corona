@@ -3,7 +3,8 @@
   (:use :cl :asdf))
 (in-package :corona-test-asd)
 
-(push :corona-testing *features*)
+(eval-when (:execute :load-toplevel :compile-toplevel)
+  (push :corona-testing *features*))
 
 (defsystem corona-test
   :author "Fernando Borretti"
