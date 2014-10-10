@@ -13,7 +13,13 @@
            :vm-directory
            :already-built-p
            :build-vm
-           :setup-vm))
+           :setup-vm
+           :start
+           :stop
+           :pause
+           :resume
+           :reboot
+           :poweroff))
 (in-package :corona.vm)
 
 (defclass <hardware> ()
@@ -50,7 +56,7 @@
   (:documentation "A virtual machine is an instance of a system's base box with
   its own virtual drive and resources."))
 
-(defmethod stored-vm-name ((vm <vm>))
+(defmethod stored-name ((vm <vm>))
   "The name of the virtual machine that VirtualBox knows."
   (concatenate 'string
                (package-name (symbol-package (name vm)))
@@ -67,7 +73,7 @@
 
 (defmethod already-built-p ((vm <vm>))
   "Have we already built the VM?"
-  (if (virtualbox:find-by-name (stored-vm-name vm)) t))
+  (if (virtualbox:find-by-name (stored-name vm)) t))
 
 ;;; The way we build virtual machienes from base boxes is roughly:
 ;;;
@@ -99,13 +105,37 @@ VM was already built."
         (log:info "Importing OVF file.")
         ;; cl-virtualbox If we're testing, don't actually import anything
         #-corona-testing
-        (virtualbox:import-vm ovf-file (stored-vm-name vm))
+        (virtualbox:import-vm ovf-file (stored-name vm))
         t))))
 
 (defmethod setup-vm ((vm <vm>))
   "Apply the virtual machine's virtual hardware settings."
   (when (slot-boundp vm 'hardware)
     (let ((hardware (hardware vm))
-          (name (stored-vm-name vm)))
+          (name (stored-name vm)))
       (virtualbox:set-vm-memory (memory hardware) name)
       (virtualbox:set-vm-cpu-count (cpu-count hardware) name))))
+
+(defmethod start ((vm <vm>))
+  (log:info "Starting...")
+  (virtualbox:start-vm (stored-name vm)))
+
+(defmethod stop ((vm <vm>))
+  (log:info "Stopping...")
+  (poweroff-vm vm))
+
+(defmethod pause ((vm <vm>))
+  (log:info "Pausing...")
+  (virtualbox:pause-vm (stored-name vm)))
+
+(defmethod resume ((vm <vm>))
+  (log:info "Resuming...")
+  (virtualbox:resume-vm (stored-name vm)))
+
+(defmethod reboot ((vm <vm>))
+  (log:info "Rebooting...")
+  (virtualbox:cold-reboot-vm (stored-name vm)))
+
+(defmethod poweroff ((vm <vm>))
+  (log:info "Forcing shutdown...")
+  (virtualbox:poweroff-vm (stored-name vm)))
