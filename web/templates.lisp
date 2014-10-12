@@ -15,6 +15,10 @@
     (:link :rel "stylesheet" :href "https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css")
     (:link :rel "stylesheet" :href "web/style.css"))))
 
+(defun footer ()
+  (markup
+   (:footer "")))
+
 (defmacro layout (&rest content)
   `(html5
     (raw (head))
@@ -25,42 +29,23 @@
      (:script :src "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
               "")
      (:script :src "web/scripts.js"
-              ""))))
+              "")
+     (raw (footer)))))
 
-(defun humanize-system-name (name)
-  (cond
-    ((equal name "freebsd")
-     "FreeBSD")
-    ((equal name "openbsd")
-     "OpenBSD")
-    (t
-     (string-capitalize name))))
-
-(defun available-systems ()
+(defun description ()
   (markup
-   (:h1 "Available Systems")
-   (:div :class "row"
-     (:div :class "col-md-6"
-       (:div :id "system-list"
-             :class "list-group"
-         (loop for sys in corona.sys::*known-systems* collecting
-           (let ((name (string-downcase (symbol-name (corona.sys:name sys))))
-                 (version (corona.sys:version sys))
-                 (arch (corona.sys:arch sys)))
-             (markup
-              (:a :href "#" :class "list-group-item"
-                  :data-sys-name name
-                  :data-sys-version version
-                  :data-sys-arch arch
-                  (format nil "~A, ~A, ~A-bit"
-                          (humanize-system-name name)
-                          arch
-                          version)))))))
-     (:div :class "col-md-6"
-       (:h2 "Machine Definition")
-       (:pre
-        (:code :id "machine-definition"
-         "(defmachine my-machine)"))))))
+   (:section :id "desc"
+     (:p
+      "Corona is a library for building and controlling virtual machines. It's
+      essentially a clone of "
+      (:a :href "https://www.vagrantup.com/" "Vagrant")
+      ", with the advantage that it's written in pure Common Lisp, and can be
+      installed simply from Quicklisp.")
+     (:p
+      "Corona uses "
+      (:a :href "https://vagrantcloud.com/" "Vagrant Cloud")
+      " as a source of base images for the virtual machines, so you can get
+      started with any system in minutes."))))
 
 (defun use-cases ()
   (markup
@@ -84,6 +69,42 @@ applications where portability is critical.")
 operating system you want to build on, set them up with everything you need, and
 run the builds.")))
 
+(defun humanize-system-name (name)
+  (cond
+    ((equal name "freebsd")
+     "FreeBSD")
+    ((equal name "openbsd")
+     "OpenBSD")
+    (t
+     (string-capitalize name))))
+
+(defun available-systems ()
+  (markup
+   (:h1 "Available Systems")
+   (:div :class "row"
+     (:div :class "col-md-6"
+       (:div :id "system-list"
+             :class "list-group"
+         (loop for sys in corona.sys::*known-systems* collecting
+           (let ((name (string-downcase (symbol-name (corona.sys:name sys))))
+                 (version (corona.sys:version sys))
+                 (arch (corona.sys:arch sys)))
+             (markup
+              (:a :href "#machine-def-header" :class "list-group-item"
+                  :data-sys-name name
+                  :data-sys-version version
+                  :data-sys-arch arch
+                  (format nil "~A, ~A, ~A-bit"
+                          (humanize-system-name name)
+                          version
+                          arch)))))))
+     (:div :class "col-md-6"
+       (:h2 :id "machine-def-header"
+            "Machine Definition")
+       (:pre
+        (:code :id "machine-definition"
+         "(defmachine my-machine)"))))))
+
 (defun faq ()
   (markup
    (:h1 "FAQ")
@@ -96,11 +117,13 @@ set up an external tool other than VirtualBox.")))
 (defun index ()
   (layout
    (:header
-    (:h1 :id "title" "Corona")
-    (:span :id "tagline" "Build and manage virtual machines from Common Lisp."))
-   (:section :id "systems"
-             (raw (available-systems)))
+    (:h1 :class "title" "Corona")
+    (:div :class "tagline"
+          "Build and manage virtual machines from Common Lisp."))
+   (raw (description))
    (:section :id "use-cases"
              (raw (use-cases)))
+   (:section :id "systems"
+             (raw (available-systems)))
    (:section :id "faq"
              (raw (faq)))))

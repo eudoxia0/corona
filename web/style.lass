@@ -1,5 +1,17 @@
 (header
-  :height "200px")
+  :height "200px"
+  :margin "90px auto"
+  :margin-bottom "0"
+  :text-align "center"
+  (.title
+    :font-size "3em")
+  (.tagline
+    :padding-top "15px"
+    :font-size "1.8em"))
 (section
   :width "90%"
   :margin "0 auto")
+(p
+  :text-align "justify")
+(footer
+  :height "90px")
