@@ -116,7 +116,9 @@ VM was already built."
   (when (slot-boundp vm 'hardware)
     (let ((hardware (hardware vm))
           (name (stored-name vm)))
+      (log:info "Setting VM memory.")
       (virtualbox:set-vm-memory name (memory hardware))
+      (log:info "Setting VM CPU count.")
       (virtualbox:set-vm-cpu-count name (cpu-count hardware)))))
 
 (defmethod ensure-vm ((vm <vm>))
