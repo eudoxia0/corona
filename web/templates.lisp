@@ -11,9 +11,16 @@
     (:meta :http-equiv "X-UA-Compatible" :content "IE=edge")
     (:meta :name "viewport" :content "width=device-width, initial-scale=1")
     (:title "Corona")
-    (:link :rel "stylesheet" :href "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
-    (:link :rel "stylesheet" :href "https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css")
+    (:link :rel "text/css" :href "http://fonts.googleapis.com/css?family=Source+Sans+Pro")
     (:link :rel "stylesheet" :href "web/style.css"))))
+
+(defun header ()
+  (markup
+   (:header
+    (:img :src "logo.png")
+    (:div :class "title" "Corona")
+    (:div :class "tagline"
+          "Build and manage virtual machines from Common Lisp."))))
 
 (defun footer ()
   (markup
@@ -25,8 +32,6 @@
     (:body
      ,@content
      (:script :src "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
-              "")
-     (:script :src "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
               "")
      (:script :src "web/scripts.js"
               "")
@@ -116,14 +121,13 @@ set up an external tool other than VirtualBox.")))
 
 (defun index ()
   (layout
-   (:header
-    (:h1 :class "title" "Corona")
-    (:div :class "tagline"
-          "Build and manage virtual machines from Common Lisp."))
-   (raw (description))
-   (:section :id "use-cases"
-             (raw (use-cases)))
-   (:section :id "systems"
-             (raw (available-systems)))
-   (:section :id "faq"
-             (raw (faq)))))
+   (raw (header))
+   (:div :class "panel panel-default"
+     (:div :class "panel-body"
+       (raw (description))
+       (:section :id "use-cases"
+         (raw (use-cases)))
+       (:section :id "systems"
+         (raw (available-systems)))
+       (:section :id "faq"
+         (raw (faq)))))))
