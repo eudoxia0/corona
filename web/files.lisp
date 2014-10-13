@@ -8,13 +8,25 @@
    `(body
      :font-family "Source Sans Pro"
      :width "60%"
-     :margin "0 auto")
+     :margin "0 auto"
+     :color "#222")
    `(header
      :margin-bottom "20px"
      :overflow "auto"
      (img
       :width "150px"
-      :float "left"))))
+      :float "left"
+      :padding-right "20px")
+     (.title
+      :padding-top "75px"
+      :font-size "3.5em")
+     (.tagline
+      :padding-top "10px"))
+   `(h1
+     :margin-bottom "0")
+   `(hr
+     :margin "0"
+     :border "1px solid #f4c142")))
 
 (defparameter +index+
   (asdf:system-relative-pathname :corona #p"index.html"))

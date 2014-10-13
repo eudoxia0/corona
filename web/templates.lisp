@@ -40,6 +40,8 @@
 (defun description ()
   (markup
    (:section :id "desc"
+     (:h1 "What is this?")
+     (:hr)
      (:p
       "Corona is a library for building and controlling virtual machines. It's
       essentially a clone of "
@@ -55,6 +57,7 @@
 (defun use-cases ()
   (markup
    (:h1 "Use Cases")
+   (:hr)
    (:h2 "Development Environments")
    (:p "Corona can be used to create isolated, reproducible development
 environments so you and your team can work on the same system.")
@@ -86,6 +89,7 @@ run the builds.")))
 (defun available-systems ()
   (markup
    (:h1 "Available Systems")
+   (:hr)
    (:div :class "row"
      (:div :class "col-md-6"
        (:div :id "system-list"
@@ -113,6 +117,7 @@ run the builds.")))
 (defun faq ()
   (markup
    (:h1 "FAQ")
+   (:hr)
    (:h2 "Why not Vagrant?")
    (:p "The advantage over Vagrant is simply that it's written in Common Lisp
 and, as such, available in Quicklisp without any external commands. This way,
