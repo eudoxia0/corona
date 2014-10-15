@@ -16,13 +16,13 @@
 
 (defparameter +corona-directory+
   #-corona-testing
-  (merge-pathnames #p".config/corona/"
+  (merge-pathnames #p".corona/"
                    (user-homedir-pathname))
   #+corona-testing
   (asdf:system-relative-pathname :corona #p"t/corona-files/")
   "The directory where Corona stores everything it needs. By default, this is
-  `~/.config/corona`, but when testing this is overriden to the path to the
-  Corona system definition, plus `t/corona`.")
+  `~/.corona`, but when testing this is overriden to the path to the Corona
+  system definition, plus `t/corona`.")
 
 (defparameter +files-directory+
   (merge-pathnames #p"files/" +corona-directory+)
