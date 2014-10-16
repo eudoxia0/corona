@@ -25,6 +25,8 @@
            :poweroff))
 (in-package :corona.vm)
 
+(defparameter +wait-time+ 3)
+
 (defclass <hardware> ()
   ((memory :reader memory
            :initarg :memory
@@ -143,7 +145,7 @@ VM was already built."
   "Wait until the machine is ready for operation."
   (loop until (readyp vm) do
     (log:info "Waiting for machine to boot...")
-    (sleep 2)))
+    (sleep +wait-time+)))
 
 (defmethod start ((vm <vm>))
   (ensure-vm vm)
