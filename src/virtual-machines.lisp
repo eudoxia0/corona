@@ -122,13 +122,34 @@ VM was already built."
       (virtualbox:set-vm-cpu-count name (cpu-count hardware)))))
 
 (defmethod ensure-vm ((vm <vm>))
+  "Ensure the VM is built an setup."
   (build-vm vm)
   (setup-vm vm))
+
+(defmethod readyp ((vm <vm>))
+  "Is the virtual machine ready to accept a login?"
+  ;; To test whether the machine is ready, we check the output of
+  ;; virtualbox:execute
+  (handler-case
+      (virtualbox:execute (stored-name vm)
+                          "/bin/ls"
+                          "vagrant"
+                          "vagrant"
+                          :wait-stdout t)
+    (uiop/run-program:subprocess-error ()
+      nil)))
+
+(defmethod wait-for-ready ((vm <vm>))
+  "Wait until the machine is ready for operation."
+  (loop until (readyp vm) do
+    (log:info "Waiting for machine to boot...")
+    (sleep 2)))
 
 (defmethod start ((vm <vm>))
   (ensure-vm vm)
   (log:info "Starting...")
-  (virtualbox:start-vm (stored-name vm)))
+  (virtualbox:start-vm (stored-name vm))
+  (wait-for-ready vm))
 
 (defmethod stop ((vm <vm>))
   (log:info "Stopping...")
