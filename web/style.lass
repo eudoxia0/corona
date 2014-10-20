@@ -1,0 +1,40 @@
+(html
+ :background-color "#333")
+(body
+ :font-family "Source Sans Pro"
+ :width "60%"
+ :margin "0 auto"
+ :padding "22px"
+ :color "#222"
+ :background-color "white")
+(header
+ :margin-bottom "20px"
+ :overflow "auto"
+ (img
+  :width "150px"
+  :float "left"
+  :padding-right "20px")
+ (.title
+  :padding-top "75px"
+  :font-size "3.5em")
+ (.tagline
+  :padding-top "10px"))
+(h1
+ :margin-bottom "0")
+(hr
+ :margin "0"
+ :border "1px solid #f4c142")
+(section
+ :padding-left "30px")
+(section#systems
+ :overflow auto
+ (ul#system-list
+  :list-style-type none
+  :width "30%"
+  :float left
+  :padding-left "0"
+  (a
+   :text-decoration none))
+ (div#machine-definition
+  :width "65%"
+  :float left))
