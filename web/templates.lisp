@@ -17,7 +17,7 @@
 (defun header ()
   (markup
    (:header
-    (:img :src "logo.png")
+    (:img :src "logo.jpg")
     (:div :class "title" "Corona")
     (:div :class "tagline"
           "Build and manage virtual machines from Common Lisp."))))
