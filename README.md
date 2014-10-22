@@ -73,7 +73,7 @@ identifies a base system: The system's name, version, and architecture.
 
 Examples:
 
-```
+```lisp
 (defmachine my-app:db-server
   :system (:debian :7.4 :32)
   :memory 2048
@@ -104,7 +104,7 @@ machines:
 
 Examples:
 
-```
+```lisp
 (start my-app:web-server)
 
 ;; Do some work

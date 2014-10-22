@@ -140,6 +140,8 @@ run the builds."))))
 
 (defparameter +usage+
   (parse-markdown (asdf:system-relative-pathname :corona "USAGE.md")))
+(defparameter +faq+
+  (parse-markdown (asdf:system-relative-pathname :corona "FAQ.md")))
 
 (defun usage ()
   (markup
@@ -153,11 +155,7 @@ run the builds."))))
    (:h1 "FAQ")
    (:hr)
    (:section :id "faq"
-     (:h2 "Why not Vagrant?")
-     (:p "The advantage over Vagrant is simply that it's written in Common Lisp
-and, as such, available in Quicklisp without any external commands. This way,
-the library can be included as a dependency and used without anyone having to
-set up an external tool other than VirtualBox."))))
+     (raw +faq+))))
 
 (defun index ()
   (layout

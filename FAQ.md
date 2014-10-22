@@ -18,7 +18,7 @@ Virtual machines are identified by a name, which is a Common Lisp symbol. Inside
 the VM directory, all the data for a virtual machine is stored inside a folder
 for the package and another folder for the symbol name. For example:
 
-~~~
+```
 virtual-machines/
   COMMON-LISP/
     TEST-VM/
@@ -26,7 +26,7 @@ virtual-machines/
   MY-APP/
     TESTING/
     STAGING/
-~~~
+```
 
 The names of your virtual machines are restricted by the limitations of your
 filesystem (Allowed characters, pathname length, etc.). Rather than add specific
