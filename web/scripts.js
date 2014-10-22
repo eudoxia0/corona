@@ -23,6 +23,13 @@ $('#system-list li').click(function (e) {
 })
 
 $(document).ready(function() {
+    // Highlight usage code
+    $('#usage pre code').each(function(idx, elem) {
+        $(elem).addClass('lisp');
+    });
+    HighlightLisp.highlight_auto();
+    // Highlight the machine definition's code
     highlightMachineDefinition();
+    // Click on the first item in the list of available systems
     $('#system-list li').first().click();
 });
