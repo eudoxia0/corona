@@ -74,7 +74,36 @@ machines:</p>
 ;; Shut it down
 
 (stop my-app:web-server)</code></pre>
-</section><h1>FAQ</h1><hr /><section id="faq"><h2>Why not Vagrant?</h2><p>The advantage over Vagrant is simply that it&#039;s written in Common Lisp
-and, as such, available in Quicklisp without any external commands. This way,
-the library can be included as a dependency and used without anyone having to
-set up an external tool other than VirtualBox.</p></section><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="web/scripts.js"></script><script src="web/highlight-lisp/highlight-lisp.js"></script><link rel="stylesheet" href="web/highlight-lisp/themes/github.css"><footer></footer></body></html>
+</section><h1>FAQ</h1><hr /><section id="faq"><h2>Why not Vagrant?</h2>
+
+<p>The advantage over Vagrant is simply that it's written in Common Lisp and, as
+such, available in Quicklisp without any external commands. This way, the
+library can be included as a dependency and used without anyone having to set up
+an external tool other than VirtualBox.</p>
+
+<h2>Where are disk images stored?</h2>
+
+<p>Everything is stored in specific subdirectories under
+<code>~/.config/corona/</code>. Vagrant Cloud images are stored, in their extracted form,
+in <code>~/.config/corona/files/vagrant-cloud/</code>. The disk images of virtual machines
+are stored in <code>~/.config/corona/files/virtual-machines</code>.</p>
+
+<h2>How are VM names handled?</h2>
+
+<p>Virtual machines are identified by a name, which is a Common Lisp symbol. Inside
+the VM directory, all the data for a virtual machine is stored inside a folder
+for the package and another folder for the symbol name. For example:</p>
+
+<pre><code>virtual-machines/
+  COMMON-LISP/
+    TEST-VM/
+    UBUNTU-PERSONAL/
+  MY-APP/
+    TESTING/
+    STAGING/</code></pre>
+
+<p>The names of your virtual machines are restricted by the limitations of your
+filesystem (Allowed characters, pathname length, etc.). Rather than add specific
+checks for meaningless edge cases, I'll just warn you not to name your virtual
+machines <code>myapp:My/Test\&lt;&lt;VM&gt;&gt;</code>.</p>
+</section><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="web/scripts.js"></script><script src="web/highlight-lisp/highlight-lisp.js"></script><link rel="stylesheet" href="web/highlight-lisp/themes/github.css"><footer></footer></body></html>
