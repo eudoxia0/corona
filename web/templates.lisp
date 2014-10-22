@@ -122,8 +122,8 @@ run the builds."))))
                    :id "definition-code"
                    "(defmachine my-machine)"))))))
 
-(setf 3bmd-code-blocks:*code-blocks* t)
-(setf 3bmd-definition-lists:*definition-lists* t)
+(setf 3bmd-code-blocks:*code-blocks* t
+      3bmd-definition-lists:*definition-lists* t)
 
 (defun parse-markdown (pathname)
   (with-output-to-string (str)
