@@ -13,7 +13,8 @@
                :trivial-extract
                :ironclad
                :cl-fad
-               :log4cl)
+               :log4cl
+               :anaphora)
   :components ((:module "src"
                 :serial t
                 :components

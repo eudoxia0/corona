@@ -73,6 +73,10 @@
                ":"
                (symbol-name (name vm))))
 
+(defmethod network-name ((vm <vm>))
+  "The name of the machine's network."
+  (concatenate 'string "vboxnet" (stored-name vm)))
+
 (defmethod vm-directory ((vm <vm>))
   "Directory where VM configuration/disks are stored."
   (merge-pathnames
@@ -128,8 +132,9 @@ VM was already built."
       (log:info "Setting VM CPU count.")
       (virtualbox:set-vm-cpu-count name (cpu-count hardware))
       (aif (ip vm)
-           (virtualbox:)
-           ))))
+           (virtualbox:set-vm-ip (stored-name vm)
+                                 (network-name vm)
+                                 it)))))
 
 (defmethod ensure-vm ((vm <vm>))
   "Ensure the VM is built an setup."
@@ -193,5 +198,5 @@ VM was already built."
   (aif (ip vm)
        (virtualbox:map-vm-ports (stored-name vm)
                                 host-port
-                                ip
+                                it
                                 guest-port)))
