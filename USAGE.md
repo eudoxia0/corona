@@ -17,6 +17,20 @@ identifies a base system: The system's name, version, and architecture.
 `ip`
 : The system's IP address. By default this is not used.
 
+Examples:
+
+```
+(defmachine my-app:db-server
+  :system (:debian :7.4 :32)
+  :memory 2048
+  :ip "192.128.65.20")
+
+(defmachine my-app:web-server
+  :system (:freebsd :10.0 :64)
+  :memory 512
+  :cpu-count 2)
+```
+
 ## Controlling VM State
 
 The following six functions can be used to control the state of the virtual
@@ -33,3 +47,21 @@ machines:
 
 `poweroff`
 : Force VM shutdown.
+
+Examples:
+
+```
+(start my-app:web-server)
+
+;; Do some work
+
+(pause my-app:web-server)
+
+;; Come back to work next morning
+
+(resume my-app:web-server)
+
+;; Shut it down
+
+(stop my-app:web-server)
+```
