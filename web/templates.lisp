@@ -55,6 +55,12 @@
       " as a source of base images for the virtual machines, so you can get
       started with any system in minutes.")
      (:p
+      "Corona just manages the machines. To access them through SSH, consider the "
+      (:code
+       (:a :href "https://github.com/eudoxia0/trivial-ssh"
+           "trivial-ssh"))
+      " library.")
+     (:p
       (:a :href "https://github.com/eudoxia0/corona"
           "View the source code on GitHub")
       "."))))
