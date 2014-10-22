@@ -1,7 +1,7 @@
 ;;;; Defining virtual machines (instances of a box) and building them
 (in-package :cl-user)
 (defpackage corona.vm
-  (:use :cl)
+  (:use :cl :anaphora)
   (:import-from :corona.sys
                 :<system>
                 :box)
@@ -57,7 +57,12 @@
    (hardware :reader hardware
              :initarg :hardware
              :type <hardware>
-             :documentation "The virtual hardware."))
+             :documentation "The virtual hardware.")
+   (ip :reader ip
+       :initarg :ip
+       :initform nil
+       :type string
+       :documentation "The VM's IP address as a string."))
   (:documentation "A virtual machine is an instance of a system's base box with
   its own virtual drive and resources."))
 
@@ -121,7 +126,10 @@ VM was already built."
       (log:info "Setting VM memory.")
       (virtualbox:set-vm-memory name (memory hardware))
       (log:info "Setting VM CPU count.")
-      (virtualbox:set-vm-cpu-count name (cpu-count hardware)))))
+      (virtualbox:set-vm-cpu-count name (cpu-count hardware))
+      (aif (ip vm)
+           (virtualbox:)
+           ))))
 
 (defmethod ensure-vm ((vm <vm>))
   "Ensure the VM is built an setup."
@@ -148,27 +156,42 @@ VM was already built."
     (sleep +wait-time+)))
 
 (defmethod start ((vm <vm>))
+  "Start the VM."
   (ensure-vm vm)
   (log:info "Starting...")
   (virtualbox:start-vm (stored-name vm))
   (wait-for-ready vm))
 
 (defmethod stop ((vm <vm>))
+  "Stop the VM."
   (log:info "Stopping...")
   (poweroff vm))
 
 (defmethod pause ((vm <vm>))
+  "Pause the VM."
   (log:info "Pausing...")
   (virtualbox:pause-vm (stored-name vm)))
 
 (defmethod resume ((vm <vm>))
+  "Resume a paused VM."
   (log:info "Resuming...")
   (virtualbox:resume-vm (stored-name vm)))
 
 (defmethod reboot ((vm <vm>))
+  "Reboot the VM."
   (log:info "Rebooting...")
   (virtualbox:cold-reboot-vm (stored-name vm)))
 
 (defmethod poweroff ((vm <vm>))
+  "Force the VM to shut down."
   (log:info "Forcing shutdown...")
   (virtualbox:poweroff-vm (stored-name vm)))
+
+(defmethod map-ports ((vm <vm>) host-port guest-port)
+  "Map traffic going to `host-port` to `guest-port` if the machine has a
+`host`."
+  (aif (ip vm)
+       (virtualbox:map-vm-ports (stored-name vm)
+                                host-port
+                                ip
+                                guest-port)))
