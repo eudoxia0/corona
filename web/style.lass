@@ -1,11 +1,11 @@
 (html
- :background-color "#333")
+ :background-color "#111")
 (body
  :font-family "Source Sans Pro"
  :width "60%"
  :margin "0 auto"
  :padding "22px"
- :color "#222"
+ :color "#111"
  :background-color "white")
 (header
  :margin-bottom "20px"
@@ -25,7 +25,8 @@
  :margin "0"
  :border "1px solid #f4c142")
 (section
- :padding-left "30px")
+ :width "90%"
+ :margin "0 auto")
 (section#systems
  :overflow auto
  (ul#system-list
@@ -34,7 +35,15 @@
   :float left
   :padding-left "0"
   (a
-   :text-decoration none))
+   :color "#3498DB")
+  (li.active
+   (a
+    :color "#EA6153")))
  (div#machine-definition
   :width "65%"
-  :float left))
+  :float left
+  :margin-top "16px"))
+(a
+ :text-decoration none)
+(p
+ :text-align justify)

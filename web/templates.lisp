@@ -53,7 +53,11 @@
       "Corona uses "
       (:a :href "https://vagrantcloud.com/" "Vagrant Cloud")
       " as a source of base images for the virtual machines, so you can get
-      started with any system in minutes."))))
+      started with any system in minutes.")
+     (:p
+      (:a :href "https://github.com/eudoxia0/corona"
+          "View the source code on GitHub")
+      "."))))
 
 (defun use-cases ()
   (markup
@@ -94,6 +98,7 @@ run the builds."))))
    (:hr)
    (:section :id "systems"
      (:ul :id "system-list"
+       (:h2 "List of Systems")
        (loop for sys in corona.sys::*known-systems* collecting
          (let ((name (string-downcase (symbol-name (corona.sys:name sys))))
                (version (corona.sys:version sys))
@@ -111,6 +116,7 @@ run the builds."))))
      (:div :id "machine-definition"
            (:h2 :id "machine-def-header"
                 "Machine Definition")
+           (:span "Click on a system in the list to get the machine definition.")
            (:pre
             (:code :class "lisp"
                    :id "definition-code"

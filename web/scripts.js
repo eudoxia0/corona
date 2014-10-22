@@ -4,9 +4,12 @@ function highlightMachineDefinition() {
 }
 
 function renderCodeExample(sys_name, sys_version, sys_arch) {
-    const sys_str = '(:' + sys_name + ' :' + sys_version + ' :' + sys_arch
+    var sys_str = '(:' + sys_name + ' :' + sys_version + ' :' + sys_arch
         + ')';
-    return '(defmachine my-machine\n  :system ' + sys_str + '\n  :memory 1024)';
+    sys_str = '(defmachine my-machine\n  :system ' + sys_str + '\n  :memory 1024)\n';
+    sys_str += '\n(start my-machine) ;; Bring it up\n';
+    sys_str += '\n(stop my-machine) ;; Stop it';
+    return sys_str;
 }
 
 $('#system-list li').click(function (e) {
@@ -21,4 +24,5 @@ $('#system-list li').click(function (e) {
 
 $(document).ready(function() {
     highlightMachineDefinition();
+    $('#system-list li').first().click();
 });
