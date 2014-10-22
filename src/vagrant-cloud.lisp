@@ -94,6 +94,7 @@ exists."
       ;; Now that it's passed verification we extract the tarball
       (handler-bind
           ((t #'(lambda (c)
+                  (declare (ignore c))
                   (log:error "Corrupt archive. Deleting archive and starting again.")
                   (delete-file archive-path)
                   (download-and-extract-box box))))
