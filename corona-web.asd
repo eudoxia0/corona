@@ -8,7 +8,10 @@
   :license "MIT"
   :depends-on (:corona
                :cl-markup
-               :lass)
+               :lass
+               :3bmd
+               :3bmd-ext-code-blocks
+               :3bmd-ext-definition-lists)
   :components ((:module "web"
                 :serial t
                 :components

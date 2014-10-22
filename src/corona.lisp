@@ -4,10 +4,18 @@
   (:use :cl)
   (:import-from :corona.vm
                 :start
-                :stop)
+                :stop
+                :pause
+                :resume
+                :reboot
+                :poweroff)
   (:export :defmachine
            :start
-           :stop))
+           :stop
+           :pause
+           :resume
+           :reboot
+           :poweroff))
 (in-package :corona)
 
 (defmacro defmachine (name &key system (memory 512) (cpu-count 1) ip)

@@ -122,6 +122,25 @@ run the builds."))))
                    :id "definition-code"
                    "(defmachine my-machine)"))))))
 
+(setf 3bmd-code-blocks:*code-blocks* t)
+(setf 3bmd-definition-lists:*definition-lists* t)
+
+(defun parse-markdown (pathname)
+  (with-output-to-string (str)
+    (3bmd:parse-string-and-print-to-stream
+     (uiop:read-file-string pathname)
+     str)))
+
+(defparameter +usage+
+  (parse-markdown (asdf:system-relative-pathname :corona "USAGE.md")))
+
+(defun usage ()
+  (markup
+   (:h1 "Usage")
+   (:hr)
+   (:section :id "usage"
+     (raw +usage+))))
+
 (defun faq ()
   (markup
    (:h1 "FAQ")
@@ -139,4 +158,5 @@ set up an external tool other than VirtualBox."))))
    (raw (description))
    (raw (use-cases))
    (raw (available-systems))
+   (raw (usage))
    (raw (faq))))
