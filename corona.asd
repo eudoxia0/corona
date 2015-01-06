@@ -7,6 +7,7 @@
   :version "0.1"
   :author "Fernando Borretti"
   :license "MIT"
+  :homepage "http://eudoxia.me/corona"
   :depends-on (:cl-virtualbox
                :trivial-download
                :trivial-types
