@@ -13,6 +13,8 @@ install:
   - sudo sudo apt-key add oracle_vbox.asc
   - sudo apt-get update
   - sudo apt-get install virtualbox-4.3
+  # Set up the driver
+  - sudo /etc/init.d/vboxdrv setup
   # Clone Lucerne
   - git clone https://github.com/eudoxia0/lucerne.git quicklisp/local-projects/lucerne
 
