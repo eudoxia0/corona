@@ -14,6 +14,8 @@ install:
   - sudo apt-get update
   - sudo apt-get install virtualbox-4.3
   # Set up the driver
+  - sudo apt-get install build-essential module-assistant
+  - sudo m-a prepare
   - sudo /etc/init.d/vboxdrv setup
   # Clone Lucerne
   - git clone https://github.com/eudoxia0/lucerne.git quicklisp/local-projects/lucerne
