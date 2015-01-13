@@ -8,11 +8,11 @@ install:
   # Install cl-travis
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | bash
   # Install VirtualBox
-  - echo "deb http://download.virtualbox.org/virtualbox/debian precise contrib" | sudo tee -a /etc/apt/sources.list
-  - curl -O https://www.virtualbox.org/download/oracle_vbox.asc
-  - sudo sudo apt-key add oracle_vbox.asc
+  - sudo echo "deb http://download.virtualbox.org/virtualbox/debian precise contrib" | sudo tee -a /etc/apt/sources.list
+  - wget http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
   - sudo apt-get update
-  - sudo apt-get install virtualbox-4.3 dkms
+  - sudo apt-get -y install linux-headers-$(uname -r)
+  - sudo apt-get -y install virtualbox-4.2
   # Clone Lucerne
   - git clone https://github.com/eudoxia0/lucerne.git quicklisp/local-projects/lucerne
 
