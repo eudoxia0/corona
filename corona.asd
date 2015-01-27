@@ -4,10 +4,13 @@
 (in-package :corona-asd)
 
 (defsystem corona
-  :version "0.1"
-  :author "Fernando Borretti"
+  :author "Fernando Borretti <eudoxiahp@gmail.com>"
+  :maintainer "Fernando Borretti <eudoxiahp@gmail.com>"
   :license "MIT"
+  :version "0.1"
   :homepage "http://eudoxia.me/corona"
+  :bug-tracker "https://github.com/eudoxia0/corona/issues"
+  :source-control (:git "git@github.com:eudoxia0/corona.git")
   :depends-on (:cl-virtualbox
                :trivial-download
                :trivial-types
