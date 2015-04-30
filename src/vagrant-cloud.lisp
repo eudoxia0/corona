@@ -35,7 +35,7 @@
             :documentation "The box version in Vagrant Cloud.")
    (checksum-type :reader checksum-type
                   :initarg :checksum-type
-                  :type :keyword
+                  :type keyword
                   :initform nil
                   :documentation "The type of checksum used to verify the
                   download, e.g. :sha1, :md5.")
