@@ -12,6 +12,7 @@
   :depends-on (:corona
                :fiveam
                :clack
+               :clack-v1-compat
                :archive
                :cl-fad)
   :components ((:module "t"
