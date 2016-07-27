@@ -15,7 +15,7 @@
 (in-package :corona.cloud)
 
 (defparameter +vagrant-cloud-url-fmt+
-  "https://vagrantcloud.com/~A/boxes/~A/versions/~A/providers/virtualbox.box"
+  "https://atlas.hashicorp.com/~A/boxes/~A/versions/~A/providers/virtualbox.box"
   "The format control string for a Vagrant Cloud box URL. The first parameter is
   the username, then the box name, and finally the version number.")
 
