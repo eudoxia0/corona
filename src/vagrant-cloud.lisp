@@ -30,8 +30,7 @@
            :documentation "The author name in Vagrant Cloud.")
    (version :reader version
             :initarg :version
-            :type integer
-            :initform 1
+            :type keyword
             :documentation "The box version in Vagrant Cloud.")
    (checksum-type :reader checksum-type
                   :initarg :checksum-type
