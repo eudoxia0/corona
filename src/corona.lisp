@@ -25,5 +25,5 @@
                     :system (corona.sys:find-system ,@system)
                     :hardware (make-instance 'corona.vm:<hardware>
                                              :memory ,memory
-                                             :cpu-count ,cpu-count
-                                             :ip ,ip))))
+                                             :cpu-count ,cpu-count)
+                    :ip ,ip)))
