@@ -6,145 +6,91 @@
 
 (define-system
   :name :ubuntu
-  :version :14.04
+  :version :xenial64
   :arch :64
   :box (define-box
-           :name "ubuntu-14.04"
-           :author "chef"))
+           :name "xenial64"
+           :author "ubuntu"
+           :version "20210119.0.0"))
 
 (define-system
   :name :ubuntu
-  :version :14.04
-  :arch :32
-  :box (define-box
-           :name "ubuntu-14.04-i386"
-           :author "chef"))
-
-(define-system
-  :name :ubuntu
-  :version :13.10
+  :version :trusty64
   :arch :64
   :box (define-box
-           :name "ubuntu-13.10"
-           :author "chef"))
+           :name "trusty64"
+           :author "ubuntu"
+           :version "20190514.0.0"))
 
 (define-system
   :name :ubuntu
-  :version :13.10
+  :version :trusty32
   :arch :32
   :box (define-box
-           :name "ubuntu-13.10-i386"
-           :author "chef"))
-
-(define-system
-  :name :ubuntu
-  :version :13.04
-  :arch :64
-  :box (define-box
-           :name "ubuntu-13.04"
-           :author "chef"))
-
-(define-system
-  :name :ubuntu
-  :version :13.04
-  :arch :32
-  :box (define-box
-           :name "ubuntu-13.04-i386"
-           :author "chef"))
-
-(define-system
-  :name :ubuntu
-  :version :10.04
-  :arch :64
-  :box (define-box
-           :name "ubuntu-10.04"
-           :author "chef"))
-
-(define-system
-  :name :ubuntu
-  :version :10.04
-  :arch :32
-  :box (define-box
-           :name "ubuntu-10.04-i386"
-           :author "chef"))
+           :name "trusty32"
+           :author "ubuntu"
+           :version "20190514.0.0"))
 
 ;;; Debian
 
 (define-system
   :name :debian
-  :version :7.6
+  :version :buster64
   :arch :64
   :box (define-box
-           :name "debian-7.6"
-           :author "chef"))
+           :name "buster64"
+           :author "debian"
+           :version "10.4.0"))
 
 (define-system
   :name :debian
-  :version :7.6
-  :arch :32
-  :box (define-box
-           :name "debian-7.6-i386"
-           :author "chef"))
-
-(define-system
-  :name :debian
-  :version :7.4
+  :version :stretch64
   :arch :64
   :box (define-box
-           :name "debian-7.4"
-           :author "chef"))
+           :name "stretch64"
+           :author "debian"
+           :version "9.12.0"))
 
 (define-system
   :name :debian
-  :version :7.4
-  :arch :32
+  :version :jessie64
+  :arch :64
   :box (define-box
-           :name "debian-7.4-i386"
-           :author "chef"))
+           :name "jessie64"
+           :author "debian"
+           :version "8.11.1"))
 
 ;;; CentOS
 
 (define-system
   :name :centos
-  :version :6.5
+  :version :7
   :arch :64
   :box (define-box
-               :name "centos-6.5"
-               :author "chef"))
-
-(define-system
-  :name :centos
-  :version :6.5
-  :arch :32
-  :box (define-box
-           :name "centos-6.5-i386"
-           :author "chef"))
+               :name "7"
+               :author "centos"
+               :version "2004.01"))
 
 ;;; Fedora
 
 (define-system
   :name :fedora
-  :version :20
+  :version :25
   :arch :64
   :box (define-box
-           :name "fedora-20"
-           :author "chef"))
+           :name "25-cloud-base"
+           :author "fedora"
+           :version "20161122"))
+
 
 (define-system
   :name :fedora
-  :version :20
-  :arch :32
-  :box (define-box
-           :name "fedora-20-i386"
-           :author "chef"))
-
-(define-system
-  :name :fedora
-  :version :19
+  :version :24
   :arch :64
   :box (define-box
-           :name "fedora-19"
-           :author "chef"))
+           :name "24-cloud-base"
+           :author "fedora"
+           :version "20160621"))
 
 ;;;; BSD forks
 
@@ -152,28 +98,31 @@
 
 (define-system
   :name :freebsd
-  :version :10.0
+  :version :12.2
   :arch :64
   :box (define-box
-           :name "freebsd-10.0"
-           :author "chef"))
+           :name "FreeBSD-12.2-RELEASE"
+           :author "freebsd"
+           :version "2020.10.23"))
 
 (define-system
   :name :freebsd
-  :version :9.2
+  :version :11.4
   :arch :64
   :box (define-box
-           :name "freebsd-9.2"
-           :author "chef"))
+           :name "FreeBSD-11.4-RELEASE"
+           :author "freebsd"
+           :version "2020.06.12"))
+
 
 (define-system
   :name :freebsd
-  :version :9.2
-  :arch :32
+  :version :10.4
+  :arch :64
   :box (define-box
-           :name "freebsd-9.2-i386"
-           :author "chef"))
-
+           :name "FreeBSD-10.4-RELEASE"
+           :author "freebsd"
+           :version "2017.09.29"))
 ;;; OpenBSD
 
 (define-system
@@ -182,7 +131,8 @@
   :arch :64
   :box (define-box
            :name "openbsd-5.5"
-           :author "tmatilai"))
+           :author "tmatilai"
+           :version "1.0.0"))
 
 ;; Simulate keeping the order
 (setf *known-systems* (reverse *known-systems*))
